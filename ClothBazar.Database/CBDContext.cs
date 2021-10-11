@@ -12,7 +12,7 @@ namespace ClothBazar.Database
     {
         public CBDContext():base("ClothBazarCon")
         {
-          //  System.Data.Entity.Database.SetInitializer(new MigrateDatabaseToLatestVersion<CBDContext, Migrations.Configuration>());
+            System.Data.Entity.Database.SetInitializer(new MigrateDatabaseToLatestVersion<CBDContext, Migrations.Configuration>());
         }
         public DbSet<Product> Products
         {
@@ -22,9 +22,9 @@ namespace ClothBazar.Database
         {
             get; set;
         }
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
 
-        //}
+        }
     }
 }
