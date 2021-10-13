@@ -1,0 +1,70 @@
+﻿@model List<Product>
+
+@{
+    ViewBag.Title = "ProductList";
+}
+
+
+<div id="tableContiner">
+    <h2>ProductList</h2>
+    <div>
+        <form method="post">
+            <input id="searchtxt" name="Search" />
+            <button type="button" id="search">Search</button>
+            <button>New</button>
+        </form>
+
+    </div>
+
+
+    <table>
+        <thead>
+            <tr>
+                <td>Product Name</td>
+                <td>Category</td>
+                <td>Price</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>-</td>
+                    <td>@product.Price</td>
+                    <td>
+                        <button>Edit</button>
+                        <button>Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+<script>
+  
+
+    $("#search").click(function () {
+        var txtvalue = $("#searchtxt").val();
+        $.ajax({
+            url: '/Product/ProductList',
+            data: {
+                search : txtvalue
+            }
+        }).done(function (data) {
+
+            $("#tableContiner").html(data);
+            //alert(data);
+        }).fail(function (XMLHttpRequest,textStatus,errorThrown) {
+            alert("FAIL");
+        })
+        
+    });
+</script>
+    
+  
+
