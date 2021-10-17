@@ -276,9 +276,13 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\ProductList.cshtml" />
     <Content Include="Views\Product\Create.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\assets\" />
+    <Folder Include="Content\css\" />
+    <Folder Include="Content\js\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -3,7 +3,7 @@
     ViewBag.Title = "Create";
 }
 
-<form method="post">
+<form id="createProduct" >
     <h2>Create Product</h2>
 
     <label>Name</label>
@@ -17,5 +17,21 @@
     <label>Price</label>
     <input type="text" name="Price" />
 
-    <button type="submit">Save</button>
+    <button id="savebtn" type="button">Save</button>
 </form>
+
+
+<script>
+    $("#savebtn").click(function () {
+        $.ajax({
+            type:'POST',
+            url: '/Product/Create',
+            data: $("#createProduct").serialize()
+        }).done(function (response) {
+            $("#tableContiner").html(response);
+            $("#createProduct").html("");
+        }).fail(function (XMLHttpRequest,textStatus,errorThrown) {
+            alert("FAIL");
+        })
+    });
+</script>
