@@ -1,16 +1,24 @@
-﻿using System;
+﻿using ClothBazar.Entities;
+using ClothBazar.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ClothBazar.Web.HomeModelViews;
 
 namespace ClothBazar.Web.Controllers
 {
     public class HomeController : Controller
     {
+        CategoriesService categoryService = new CategoriesService();
+
         public ActionResult Index()
         {
-            return View();
+            HomeModelView model = new HomeModelView();
+            model.Categories = categoryService.GetAllCategory();
+
+            return View(model);
         }
 
         public ActionResult About()

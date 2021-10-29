@@ -13,5 +13,45 @@
     <label>Description</label>
     <input type="text" name="Description" />
 
+    <label>Image</label>
+    <input id="ImageURL" type="hidden" name="ImageURL"/>
+    <input id="changeimg" type="file" name="image" accept=".png .jpg"/>
+
+    <img id="imageshow"/>
     <button type="submit">Save</button>
+
 </form>
+
+<script>
+    $("#changeimg").change(function () {
+        debugger;
+        var element = this;
+        var formData = new FormData();
+        var totalFiles = element.files.length;
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("Photo", file);
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/Shared/UploadImage',
+            dataType: 'json',
+            data: formData,
+            contentType: false,
+            processData:false
+        }).done(function (response) {
+            debugger;
+            console.log(response);
+
+            if (response.Success) {
+                $("#ImageURL").val(response.ImageURL);
+                $("#imageshow").attr("src",response.ImageURL);
+            }
+                
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("FAIL");
+        })
+    })
+</script>
