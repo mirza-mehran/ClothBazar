@@ -12,7 +12,7 @@ namespace ClothBazar.Entities
         {
             get; set;
         }
-        public Category Category
+        public virtual Category Category
         {
             get; set;
         }

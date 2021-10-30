@@ -1,5 +1,6 @@
 ﻿using ClothBazar.Entities;
 using ClothBazar.Services;
+using ClothBazar.Web.HomeModelViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,15 +29,25 @@ namespace ClothBazar.Web.Controllers
         }
         public ActionResult Create()
         {
-            return PartialView();
+            CategoriesService categoryservice = new CategoriesService();
+            var categories = categoryservice.GetAllCategory();
+            return PartialView(categories);
         }
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(CategoryViewModels model)
         {
             if (ModelState.IsValid)
             {
-                productsService.SaveProduct(product);
-                
+                CategoriesService categoryservice = new CategoriesService();
+
+                var newProduct = new Product();
+                newProduct.Name = model.Name;
+                newProduct.Description = model.Description;
+                newProduct.Price = model.Price;
+                newProduct.Category = categoryservice.GetCategoryID(model.CategoryID);
+
+                productsService.SaveProduct(newProduct);
+
             }
             return RedirectToAction("ProductList");
         }

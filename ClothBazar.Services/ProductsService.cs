@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace ClothBazar.Services
 {
@@ -14,15 +15,20 @@ namespace ClothBazar.Services
         {
             using (var context=new CBDContext())
             {
+                context.Entry(product.Category).State = System.Data.Entity.EntityState.Unchanged;
+
                 context.Products.Add(product);
                 context.SaveChanges();
             }
         }
         public List<Product> GetAllProduct()
         {
+           // var context = new CBDContext();
+           //return context.Products.ToList();
+
             using (var context = new CBDContext())
-            {               
-                return  context.Products.ToList();
+            {
+                return context.Products.Include(x => x.Category).ToList();
             }
         }
 
