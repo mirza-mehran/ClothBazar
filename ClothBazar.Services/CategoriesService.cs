@@ -22,10 +22,16 @@ namespace ClothBazar.Services
         {
             using (var context = new CBDContext())
             {               
-                return  context.Categories.ToList();;
+                return  context.Categories.ToList();
             }
         }
-
+        public List<Category> GetFeaturedCategories()
+        {
+            using (var context = new CBDContext())
+            {
+                return context.Categories.Where(x => x.IsFeatured && x.ImageURL !=null).ToList();
+            }
+        }
         public Category GetCategoryID(int id)
         {
             using (var context = new CBDContext())

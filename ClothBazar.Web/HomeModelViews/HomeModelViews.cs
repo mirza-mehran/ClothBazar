@@ -8,9 +8,10 @@ namespace ClothBazar.Web.HomeModelViews
 {
     public class HomeModelView
     {
-        public List<Category> Categories
+        public List<Category> FeaturedCategories
         {
             get; set;
         }
+        
     }
 }

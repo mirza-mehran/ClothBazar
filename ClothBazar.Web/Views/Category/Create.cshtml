@@ -1,6 +1,10 @@
-﻿
+﻿@model ClothBazar.Entities.Category
+
 @{
     ViewBag.Title = "Create";
+
+    //var truechecked = Model.IsFeatured ? "checked" : string.Empty;
+    //var falsechecked = !Model.IsFeatured ? "checked" : string.Empty;
 }
 
 <form method="post">
@@ -13,11 +17,16 @@
     <label>Description</label>
     <input type="text" name="Description" />
 
+    <label>Is Featured</label>
+    <input name="IsFeatured" type="radio" value="True" checked   /> True
+    <input name="IsFeatured" type="radio" value="False"  /> False <br/>
+
     <label>Image</label>
     <input id="ImageURL" type="hidden" name="ImageURL"/>
     <input id="changeimg" type="file" name="image" accept=".png .jpg"/>
 
     <img id="imageshow"/>
+
     <button type="submit">Save</button>
 
 </form>

@@ -42,10 +42,10 @@ namespace ClothBazar.Web.Controllers
         [HttpPost]
         public ActionResult Edit(Category category)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 categoryService.GetCategoryUpdate(category);
-            }
+          //  }
             return RedirectToAction("Index");
         }
 

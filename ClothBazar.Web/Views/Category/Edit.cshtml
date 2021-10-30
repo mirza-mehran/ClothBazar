@@ -15,5 +15,11 @@
     <label>Description</label>
     <input type="text" name="Description" value="@Model.Description" />
 
+    @*<input name="IsFeatured" type="checkbox" checked="checked" value="True" style="display:inline" />*@
+
+    <label>Is Featured</label>
+    <input name="IsFeatured" type="radio" value="True" checked /> True
+    <input name="IsFeatured" type="radio" value="False" /> False <br />
+    <br />
     <button type="submit">Save</button>
 </form>

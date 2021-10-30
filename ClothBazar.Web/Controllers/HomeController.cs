@@ -16,22 +16,19 @@ namespace ClothBazar.Web.Controllers
         public ActionResult Index()
         {
             HomeModelView model = new HomeModelView();
-            model.Categories = categoryService.GetAllCategory();
-
+            model.FeaturedCategories = categoryService.GetFeaturedCategories();
             return View(model);
         }
 
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

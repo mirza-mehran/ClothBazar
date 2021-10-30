@@ -15,5 +15,9 @@ namespace ClothBazar.Entities
         {
             get; set;
         }
+        public bool IsFeatured
+        {
+            get; set;
+        }
     }
 }
