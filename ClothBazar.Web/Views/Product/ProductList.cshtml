@@ -1,13 +1,12 @@
-﻿@model List<Product>
-
+﻿@model ProductSearchViewModels
 
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <div id="tableContiner">
  
-            <div>
+            <div> 
                 <form class="form-inline" method="post">
                     <div class="form-group mb-2 ml-5">
-                        <input id="searchtxt" class="ml-1" name="Search" /> 
+                        <input id="searchtxt" class="ml-1" name="Search" value="@Model.SearchTerm" /> 
                         <button class="ml-1" type="button" id="search" >Search</button>
                         <button class="ml-2" id="NewBtn" type="button">New</button>
                     </div>
@@ -20,32 +19,41 @@
                         <td>Product Name</td>
                         <td>Category</td>
                         <td>Price</td>
-                        <td>Actions</td>
+                        <td class="wrap-td">Actions</td>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var product in Model)
-            {
-                        <tr>
-                            <td>@product.Name</td>
-                            <td>
+                        @if (Model.Products != null && Model.Products.Count > 0)
+                        {
+                            foreach (var product in Model.Products)
+                            {
+                                <tr>
+                                    <td>@product.Name</td>
+                                    <td>
 
-                                @if (product.Category != null)
-                                {
-                                    <text>@product.Category.Name</text>
-                                }
-                                else
-                                {
-                                    <text>-</text>
-                                }
-                            </td>
-                            <td>@product.Price</td>
-                            <td>
-                                <button class="EditBtn" data-id="@product.ID">Edit</button>
-                                <button class="DelBtn" data-id="@product.ID">Delete</button>
-                            </td>
-                        </tr>
-                    }
+                                        @if (product.Category != null)
+                                        {
+                                            <text>@product.Category.Name</text>
+                                        }
+                                        else
+                                        {
+                                            <text>-</text>
+                                        }
+                                    </td>
+                                    <td>@product.Price</td>
+                                    <td class="wrap-td">
+                                        <button class="EditBtn" data-id="@product.ID">Edit</button>
+                                        <button class="DelBtn" data-id="@product.ID">Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" class="text-danger">No Product found.</td>
+                            </tr>
+                        }
                 </tbody>
             </table>
         </div>
@@ -78,7 +86,9 @@
                 })
                 .done(function (response) {
                     $("#AddProductCon").html(response);
+                    focusAction();
                 })
+
                 .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("FAIL");
                 })
@@ -93,6 +103,8 @@
                 })
                 .done(function (response) {
                     $("#AddProductCon").html(response);
+
+                    focusAction();
                 })
                 .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("FAIL");
@@ -121,6 +133,12 @@
 
             });
 
+            function focusAction() {
+
+                $('html , body').animate({
+                    scrollTop: $("#AddProductCon").offset().top - 100
+                }, 1000);
+            }
         </script>
 
 

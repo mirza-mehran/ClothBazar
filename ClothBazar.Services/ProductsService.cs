@@ -36,7 +36,7 @@ namespace ClothBazar.Services
         {
             using (var context = new CBDContext())
             {
-               return  context.Products.Find(id);            
+               return  context.Products.Where(x => x.ID ==id).Include(x => x.Category).FirstOrDefault();            
             }
         }
 

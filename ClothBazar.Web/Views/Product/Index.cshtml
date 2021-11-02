@@ -1,10 +1,25 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Products";
 }
 
 <h2>Product Home Page</h2>
-@{
-    Html.RenderAction("ProductList");
-  //  Html.RenderAction("Create");
-}
+
+<section class="flat-row flat-iconbox">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-section margin_bottom_17">
+                    <h2 class="title">
+                        Product
+                    </h2>
+                </div>
+            </div>
+        </div>
+        @{
+            Html.RenderAction("ProductList");
+            //  Html.RenderAction("Create");
+        }
+     </div>
+</section>
+
 

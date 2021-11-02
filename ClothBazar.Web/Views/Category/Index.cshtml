@@ -1,13 +1,24 @@
-﻿@model List<ClothBazar.Entities.Category>
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "Categories";
 }
 
-<h2>All Category</h2>
-
-@foreach (var item in Model)
-{
-    <ul>
-        <li>@item.Name</li>
-    </ul>
-}
+<h2>Category Home Page</h2>
+<section class="flat-row flat-iconbox">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-section margin_bottom_17">
+                    <h2 class="title">
+                        Category
+                    </h2>
+                </div>
+            </div>
+        </div>
+        @{
+            Html.RenderAction("CategoryList");
+            //  Html.RenderAction("Create");
+        }
+    </div>
+</section>
+   
+  

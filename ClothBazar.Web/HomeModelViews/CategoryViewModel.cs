@@ -1,28 +1,41 @@
-﻿using System;
+﻿using ClothBazar.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace ClothBazar.Web.HomeModelViews
 {
-    public class CategoryViewModels
+    public class CategorySearchViewModels
     {
-        public string Name
+        public List<Category> Categories
         {
-            get; set;
+            get;set;
         }
-        public string Description
+        public string SearchTerm
         {
-            get; set;
-        }
-        public decimal Price
-        {
-            get; set;
-        }
-
-        public int CategoryID
-        {
-            get; set;
+            get;set;
         }
     }
+    public class CategoryViewModels
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string ImageURL { get; set;}
+        public bool isFeatured { get; set; }
+
+    }
+
+    public class EditCategoryViewModels
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string ImageURL
+        {
+            get; set;
+        }
+        public bool isFeatured { get; set; }
+    }
+
 }

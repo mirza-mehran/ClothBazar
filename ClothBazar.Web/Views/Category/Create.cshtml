@@ -1,13 +1,14 @@
-﻿@model ClothBazar.Entities.Category
+﻿@model CategoryViewModels
 
 @{
     ViewBag.Title = "Create";
 
     //var truechecked = Model.IsFeatured ? "checked" : string.Empty;
     //var falsechecked = !Model.IsFeatured ? "checked" : string.Empty;
+    var imageURL = "/Content/Images/Default_image.jpg";
 }
 
-<form method="post">
+@*<form method="post">
     <h2>Create Category</h2>
 
     <label>Name</label>
@@ -29,11 +30,51 @@
 
     <button type="submit">Save</button>
 
+</form>*@
+
+<form id="createCategory" >
+    <div class="mb-2 ml-5">
+
+        <label>Name</label>
+        <input class="form-control form-control-lg" type="text" name="name" />
+
+
+        <label>Description</label>
+        <input class="form-control form-control-lg" type="text" name="Description" />
+
+        <label>Is Featured</label><br />
+        <input name="IsFeatured" type="radio" value="True" checked /> True
+        <input name="IsFeatured" type="radio" value="False" /> False 
+        <br />
+        <label>Image</label>
+        <input class="form-control form-control-lg" type="hidden"  id="ImageURL" name="ImageURL" />
+        <input class="form-control form-control-lg" id="changeimg" type="file" name="image" accept=".png .jpg" />
+        <div  class="thumb w-25 h-25 ">
+            <img id="imageshow" src="@imageURL"  />
+        </div>
+        <br />
+        <button id="savebtn" type="button" class="btn btn-primary form-control form-control-lg">Save</button>
+    </div>
 </form>
 
+
 <script>
+    
+    $("#savebtn").click(function () {
+        $.ajax({
+            type: 'POST',
+            url: '/Category/Create',
+            data: $("#createCategory").serialize()
+        }).done(function (response) {
+            $("#tableContiner").html(response);
+            $("#createCategory").html("");
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("FAIL");
+        })
+    });
+
     $("#changeimg").change(function () {
-        debugger;
+     
         var element = this;
         var formData = new FormData();
         var totalFiles = element.files.length;
@@ -51,7 +92,7 @@
             contentType: false,
             processData:false
         }).done(function (response) {
-            debugger;
+        
             console.log(response);
 
             if (response.Success) {
