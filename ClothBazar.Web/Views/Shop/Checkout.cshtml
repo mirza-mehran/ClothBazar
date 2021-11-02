@@ -1,0 +1,24 @@
+﻿@model CheckoutViewModels
+
+@if (Model !=null)
+{
+    if (Model.CartProducts !=null && Model.CartProducts.Count > 0)
+    {
+        <div>
+            @foreach (var cartproduct in Model.CartProducts)
+            {
+                var productQuantity = Model.CartProductIDs.Where(x => x == cartproduct.ID).Count();
+                <div>
+                   Name : @cartproduct.Name         -           Price : @cartproduct.Price          -       Qty : @productQuantity        -       Total Price @(cartproduct.Price * productQuantity):
+                </div>
+            }
+        </div>
+        <div>
+            Total Bill : @Model.CartProducts.Sum(x => x.Price * Model.CartProductIDs.Where(productId => productId == x.ID).Count());
+        </div>
+    }
+}else{
+    <div>
+        No Product in Cart.
+    </div>
+}

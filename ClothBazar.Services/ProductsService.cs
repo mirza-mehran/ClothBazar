@@ -57,5 +57,12 @@ namespace ClothBazar.Services
                 context.SaveChanges();
             }
         }
+        public List<Product> GetProducts(List<int> IDs)
+        {
+            using (var context = new CBDContext())
+            {
+                return context.Products.Where(x => IDs.Contains(x.ID)).ToList();
+            }
+        }
     }
 }
