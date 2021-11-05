@@ -1,6 +1,10 @@
 ﻿@model ProductSearchViewModels
 
-<script src="~/Scripts/jquery-1.10.2.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"/>
+<script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+@*<script src="~/Scripts/jquery-1.10.2.js"></script>*@
+
 <div id="tableContiner">
 
     <div>
@@ -12,51 +16,56 @@
             </div>
         </form>
     </div>
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <td>Product Name</td>
-                <td>Category</td>
-                <td>Price</td>
-                <td class="wrap-td">Actions</td>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.Products != null && Model.Products.Count > 0)
+    <div >
+        <table id="ProductsTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Product Name</td>
+                    <td>Category</td>
+                    <td>Price</td>
+                    <td class="wrap-td">Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Products != null && Model.Products.Count > 0)
             {
                 foreach (var product in Model.Products)
                 {
+                        <tr>
+                            <td>@product.Name</td>
+                            <td>
+                                @if (product.Category != null)
+                                {
+                                    <text>@product.Category.Name</text>
+                                }
+                                else
+                                {
+                                    <text>-</text>
+                                }
+                            </td>
+                            <td>@product.Price</td>
+                            <td class="wrap-td">
+                                <button class="EditBtn" data-id="@product.ID">Edit</button>
+                                <button class="DelBtn" data-id="@product.ID">Delete</button>
+                                <button class="addtoCart" data-id="@product.ID">Add To Card</button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
                     <tr>
-                        <td>@product.Name</td>
-                        <td>
-
-                            @if (product.Category != null)
-                            {
-                                <text>@product.Category.Name</text>
-                            }
-                            else
-                            {
-                                <text>-</text>
-                            }
-                        </td>
-                        <td>@product.Price</td>
-                        <td class="wrap-td">
-                            <button class="EditBtn" data-id="@product.ID">Edit</button>
-                            <button class="DelBtn" data-id="@product.ID">Delete</button>
-                            <button class="addtoCart" data-id="@product.ID">Add To Card</button>
-                        </td>
+                        <td colspan="4" class="text-danger">No Product found.</td>
                     </tr>
                 }
-            }
-            else
-            {
-                <tr>
-                    <td colspan="4" class="text-danger">No Product found.</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+        @*<div>
+            <button class="pageRecords" data-pageNo="@(Model.pageNo - 1)">Previous</button>
+            <button class="pageRecords" data-pageNo="@(Model.pageNo + 1)">Next</button>
+        </div>*@
+    </div>
+  
 </div>
 <div id="AddProductCon">
 
@@ -64,6 +73,28 @@
 
 
 <script>
+
+        $('#ProductsTable').DataTable();
+
+
+    $(".pageRecords").click(function () {
+        $.ajax({
+            url: '/Product/ProductList',
+            data: {
+                pageNo: $(this).attr("data-pageNo")
+            }
+        })
+        .done(function (response) {
+            $("#tableContiner").html(response);
+        })
+
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("FAIL");
+        })
+    });
+
+
+
     $("#search").click(function () {
         var txtvalue = $("#searchtxt").val();
         $.ajax({

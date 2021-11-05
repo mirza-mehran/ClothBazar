@@ -11,6 +11,22 @@ namespace ClothBazar.Services
 {
    public  class ProductsService
     {
+        #region Singleton
+        public static ProductsService Instance {
+            get {
+                if (instance == null)
+                    instance = new ProductsService();
+                return instance;
+            }
+        }
+
+        private static ProductsService instance { get; set; }
+   
+        private ProductsService()
+        {
+
+        }
+        #endregion
         public void SaveProduct(Product product)
         {
             using (var context=new CBDContext())
@@ -21,14 +37,14 @@ namespace ClothBazar.Services
                 context.SaveChanges();
             }
         }
-        public List<Product> GetAllProduct()
+        public List<Product> GetAllProduct(int pageNo)
         {
-           // var context = new CBDContext();
-           //return context.Products.ToList();
-
             using (var context = new CBDContext())
             {
+                int pageSize = 5;
+                //return context.Products.OrderBy(x => x.Name).Skip( (pageNo-1) * pageSize).Take(pageSize).Include(x => x.Category).ToList();
                 return context.Products.Include(x => x.Category).ToList();
+
             }
         }
 

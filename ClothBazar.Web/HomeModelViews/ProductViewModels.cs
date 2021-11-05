@@ -8,6 +8,7 @@ namespace ClothBazar.Web.HomeModelViews
 {
     public class ProductSearchViewModels
     {
+        public int pageNo { get;  set; }
         public List<Product> Products {get; set;}
         public string SearchTerm {get; set;}
     }

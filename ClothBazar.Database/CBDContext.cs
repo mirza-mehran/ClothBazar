@@ -22,6 +22,10 @@ namespace ClothBazar.Database
         {
             get; set;
         }
+        public DbSet<Config> Configurations
+        {
+            get; set;
+        }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

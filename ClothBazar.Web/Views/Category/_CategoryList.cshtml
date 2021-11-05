@@ -54,7 +54,7 @@
             $("#search").click(function () {
                 var txtvalue = $("#searchtxt").val();
                 $.ajax({
-                    url: '/Category/CategoryList',
+                    url: @Url.Action("CategoryList", "Category"),//'/Category/CategoryList',
                     data: {
                         search: txtvalue
                     }
