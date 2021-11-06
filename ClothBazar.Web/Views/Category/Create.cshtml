@@ -59,11 +59,11 @@
 
 
 <script>
-    
+
     $("#savebtn").click(function () {
         $.ajax({
             type: 'POST',
-            url: '/Category/Create',
+            url: '@Url.Action("Create", "Category")',//'/Category/Create',
             data: $("#createCategory").serialize()
         }).done(function (response) {
             $("#tableContiner").html(response);
@@ -74,7 +74,7 @@
     });
 
     $("#changeimg").change(function () {
-     
+
         var element = this;
         var formData = new FormData();
         var totalFiles = element.files.length;
@@ -86,20 +86,20 @@
 
         $.ajax({
             type: 'POST',
-            url: '/Shared/UploadImage',
+            url: '@Url.Action("UploadImage", "Shared")',//'/Shared/UploadImage',
             dataType: 'json',
             data: formData,
             contentType: false,
             processData:false
         }).done(function (response) {
-        
+
             console.log(response);
 
             if (response.Success) {
                 $("#ImageURL").val(response.ImageURL);
                 $("#imageshow").attr("src",response.ImageURL);
             }
-                
+
         }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
             alert("FAIL");
         })

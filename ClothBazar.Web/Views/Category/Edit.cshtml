@@ -60,7 +60,7 @@
 
 <script>
     $("#changeimg").change(function () {
-        
+
         var element = this;
         var formData = new FormData();
         var totalFiles = element.files.length;
@@ -72,13 +72,13 @@
 
         $.ajax({
             type: 'POST',
-            url: '/Shared/UploadImage',
+            url: '@Url.Action("UploadImage", "Shared")',//'/Shared/UploadImage',
             dataType: 'json',
             data: formData,
             contentType: false,
             processData: false
         }).done(function (response) {
-            
+
             console.log(response);
 
             if (response.Success) {
@@ -94,7 +94,7 @@
     $("#editbtn").click(function () {
         $.ajax({
             type:'POST',
-            url: '/Category/Edit',
+            url:  '@Url.Action("Edit", "Category")',//'/Category/Edit',
             data: $("#editCategory").serialize()
         }).done(function (response) {
             $("#tableContiner").html(response);

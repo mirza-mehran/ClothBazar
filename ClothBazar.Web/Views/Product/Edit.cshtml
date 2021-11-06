@@ -55,7 +55,7 @@
     $("#editbtn").click(function () {
         $.ajax({
             type:'POST',
-            url: '/Product/Edit',
+            url:   '@Url.Action("Edit", "Product")',//'/Product/Edit',
             data: $("#editProduct").serialize()
         }).done(function (response) {
             $("#tableContiner").html(response);

@@ -11,19 +11,24 @@ namespace ClothBazar.Services
 {
     public class ConfigurationService
     {
-        //public static ConfigurationService PublicConfigInstance {
-        //    get {
-        //        if (PrivateConfigInstance == null)
-        //            PrivateConfigInstance = new ConfigurationService();
-        //        return PrivateConfigInstance;
-        //    }
-        //}
-        //private static ConfigurationService PrivateConfigInstance { get; set; }
+        #region Singleton
+        public static ConfigurationService Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new ConfigurationService();
+                return instance;
+            }
+        }
 
-        //private ConfigurationService()
-        //{
+        private static ConfigurationService instance { get; set; }
 
-        //}
+        private ConfigurationService()
+        {
+
+        }
+        #endregion
         public Config GetConfig(string key)
         {
             using (var context = new CBDContext())

@@ -12,7 +12,7 @@ namespace ClothBazar.Web.Controllers
     public class ProductController : Controller
     {
        // ProductsService productsService = new ProductsService();
-        CategoriesService categoryservice = new CategoriesService();
+      //  CategoriesService categoryservice = new CategoriesService();
 
         // GET: Product
         public ActionResult Index()
@@ -58,8 +58,8 @@ namespace ClothBazar.Web.Controllers
         public ActionResult Create()
         {
             ProductViewModels model = new ProductViewModels();
-            CategoriesService categoryservice = new CategoriesService();
-            model.AvailableCategories = categoryservice.GetAllCategory();
+         //   CategoriesService categoryservice = new CategoriesService();
+            model.AvailableCategories = CategoriesService.Instance.GetAllCategory();
             
             return PartialView(model);
         }
@@ -68,13 +68,13 @@ namespace ClothBazar.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                CategoriesService categoryservice = new CategoriesService();
+               // CategoriesService categoryservice = new CategoriesService();
 
                 var newProduct = new Product();
                 newProduct.Name = model.Name;
                 newProduct.Description = model.Description;
                 newProduct.Price = model.Price;
-                newProduct.Category = categoryservice.GetCategoryID(model.CategoryID);
+                newProduct.Category = CategoriesService.Instance.GetCategoryID(model.CategoryID);
                 ProductsService.Instance.SaveProduct(newProduct);
             }
             return RedirectToAction("ProductList");
@@ -91,7 +91,7 @@ namespace ClothBazar.Web.Controllers
             model.Description = product.Description;
             model.Price = product.Price;
             model.CategoryID = product.Category != null ? product.Category.ID :0;
-            model.AvailableCategories = categoryservice.GetAllCategory();
+            model.AvailableCategories = CategoriesService.Instance.GetAllCategory();
 
             return PartialView(model); 
         }
@@ -100,13 +100,13 @@ namespace ClothBazar.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                CategoriesService categoryservice = new CategoriesService();
+               // CategoriesService categoryservice = new CategoriesService();
 
                 var existingProduct = ProductsService.Instance.GetProductID(model.ID);
                 existingProduct.Name = model.Name;
                 existingProduct.Description = model.Description;
                 existingProduct.Price = model.Price;
-                existingProduct.Category = categoryservice.GetCategoryID(model.CategoryID);
+                existingProduct.Category = CategoriesService.Instance.GetCategoryID(model.CategoryID);
 
                 ProductsService.Instance.GetProductUpdate(existingProduct);
             }

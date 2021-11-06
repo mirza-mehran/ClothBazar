@@ -1,8 +1,4 @@
-﻿@{
-    ConfigurationService configurationService = new ConfigurationService();
-
-}
-
+﻿
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
@@ -186,7 +182,7 @@
                             </form>
                             <ul class="flat-social">
                           
-                                <li><a href="@configurationService.GetConfig("Facebook").Value"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="@ConfigurationService.Instance.GetConfig("Facebook").Value"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-google"></i></a></li>
                                 <li><a href="#"><i class="fa fa-behance"></i></a></li>
@@ -238,7 +234,7 @@
                                 <a href="index.html"><img src="~/modaz/images/logo@2x.png" alt="image" width="107" height="24"></a>
                             </div>
                             <ul class="flat-contact">
-                                <li class="address">@configurationService.GetConfig("CompanyAddress").Value</li>
+                                <li class="address">@ConfigurationService.Instance.GetConfig("CompanyAddress").Value</li>
                                 <li class="phone">+12 345 678 910</li>
                                 <li class="email">infor.deercreative@gmail.com</li>
                             </ul><!-- /.flat-contact -->

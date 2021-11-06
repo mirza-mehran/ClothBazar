@@ -54,7 +54,7 @@
             $("#search").click(function () {
                 var txtvalue = $("#searchtxt").val();
                 $.ajax({
-                    url: @Url.Action("CategoryList", "Category"),//'/Category/CategoryList',
+                    url: '@Url.Action("CategoryList", "Category")',//'/Category/CategoryList',
                     data: {
                         search: txtvalue
                     }
@@ -70,7 +70,7 @@
 
             $("#NewBtn").click(function () {
                 $.ajax({
-                    url: '/Category/Create'
+                    url: '@Url.Action("Create", "Category")',//'/Category/Create'
                 })
                 .done(function (response) {
                     $("#AddProductCon").html(response);
@@ -83,7 +83,7 @@
 
             $(".EditBtn").click(function () {
                 $.ajax({
-                    url: '/Category/Edit',
+                    url: '@Url.Action("Edit", "Category")',//'/Category/Edit',
                     data: {
                         ID: $(this).attr('data-id')
                     }
@@ -104,7 +104,7 @@
                 if (confirmsms) {
                     $.ajax({
                         type: 'POST',
-                        url: '/Category/Delete',
+                        url: '@Url.Action("Delete", "Category")',//'/Category/Delete',
                         data: {
                             ID: $(this).attr('data-id')
                         }

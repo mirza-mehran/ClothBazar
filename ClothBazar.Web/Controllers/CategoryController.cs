@@ -11,7 +11,6 @@ namespace ClothBazar.Web.Controllers
 {
     public class CategoryController : Controller
     {
-        CategoriesService categoryService = new CategoriesService();
         // GET: Category
         [HttpGet]
         public ActionResult Index()
@@ -22,7 +21,7 @@ namespace ClothBazar.Web.Controllers
         public ActionResult CategoryList(string search)
         {
             CategorySearchViewModels model = new CategorySearchViewModels();
-            model.Categories = categoryService.GetAllCategory();
+            model.Categories = CategoriesService.Instance.GetAllCategory();
 
 
             if (!string.IsNullOrEmpty(search))
@@ -37,7 +36,7 @@ namespace ClothBazar.Web.Controllers
         public ActionResult Create()
         {
             CategoryViewModels model = new CategoryViewModels();
-            CategoriesService categoryservice = new CategoriesService();
+        //    CategoriesService categoryservice = new CategoriesService();
           
             return PartialView(model);
         }
@@ -46,7 +45,6 @@ namespace ClothBazar.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                CategoriesService categoryservice = new CategoriesService();
 
                 var newcategory = new Category();
                 newcategory.Name = model.Name;
@@ -54,7 +52,7 @@ namespace ClothBazar.Web.Controllers
                 newcategory.ImageURL = model.ImageURL;
                 newcategory.IsFeatured = model.isFeatured;
 
-                categoryService.SaveCategory(newcategory);
+                CategoriesService.Instance.SaveCategory(newcategory);
             }
             return RedirectToAction("CategoryList");
         }
@@ -64,7 +62,7 @@ namespace ClothBazar.Web.Controllers
         {
             EditCategoryViewModels model = new EditCategoryViewModels();
 
-            var category = categoryService.GetCategoryID(id);
+            var category = CategoriesService.Instance.GetCategoryID(id);
 
             model.ID = category.ID;
             model.Name = category.Name;
@@ -80,15 +78,14 @@ namespace ClothBazar.Web.Controllers
            
             if (ModelState.IsValid)
             {
-                CategoriesService categoryservice = new CategoriesService();
 
-                var existingCategory = categoryService.GetCategoryID(model.ID);
+                var existingCategory = CategoriesService.Instance.GetCategoryID(model.ID);
                 existingCategory.Name = model.Name;
                 existingCategory.Description = model.Description;
                 existingCategory.ImageURL = model.ImageURL;
                 existingCategory.IsFeatured = model.isFeatured;
 
-                categoryService.GetCategoryUpdate(existingCategory);
+                CategoriesService.Instance.GetCategoryUpdate(existingCategory);
 
             }
             return RedirectToAction("CategoryList");
@@ -97,7 +94,7 @@ namespace ClothBazar.Web.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            categoryService.GetCategoryDelete(id);
+            CategoriesService.Instance.GetCategoryDelete(id);
             return RedirectToAction("CategoryList");
         }
     }

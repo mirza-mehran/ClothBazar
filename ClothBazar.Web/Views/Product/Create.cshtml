@@ -32,7 +32,7 @@
     $("#savebtn").click(function () {
         $.ajax({
             type:'POST',
-            url: '/Product/Create',
+            url:  '@Url.Action("Create", "Product")',//'/Product/Create',
             data: $("#createProduct").serialize()
         }).done(function (response) {
             $("#tableContiner").html(response);
