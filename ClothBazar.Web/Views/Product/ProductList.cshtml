@@ -21,10 +21,10 @@
         <table id="ProductsTable" class="table table-striped">
             <thead>
                 <tr>
-                    <td>Product Name</td>
-                    <td>Category</td>
-                    <td>Price</td>
-                    <td class="wrap-td">Actions</td>
+                    <th class="font-weight-bold">Product Name</th>
+                    <th class="font-weight-bold">Category</th>
+                    <th class="font-weight-bold">Price</th>
+                    <th class="font-weight-bold wrap-td">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -135,7 +135,7 @@
         })
         .done(function (response) {
             $("#AddProductCon").html(response);
-            focusAction();
+            focusAction("AddProductCon");
         })
 
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
@@ -153,7 +153,8 @@
         .done(function (response) {
             $("#AddProductCon").html(response);
 
-            focusAction();
+            focusAction("AddProductCon");
+
         })
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
             alert("FAIL");
@@ -221,13 +222,16 @@
         alert('Product Addd to Cart.');
     });
 
-
-    function focusAction() {
-
+    function focusAction(controlToFocus) {
         $('html , body').animate({
-            scrollTop: $("#AddProductCon").offset().top - 100
+            scrollTop: $("#" + controlToFocus).offset().top - 100
         }, 1000);
     }
+    //function focusAction() {
+    //    $('html , body').animate({
+    //        scrollTop: $("#AddProductCon").offset().top - 100
+    //    }, 1000);
+    //}
 </script>
 
 

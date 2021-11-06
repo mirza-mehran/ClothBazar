@@ -23,7 +23,9 @@
         <label>Price</label>
         <input type="text" name="Price" />
 
-        <button id="savebtn" type="button">Save</button>
+        <button id="savebtn" type="button" class="btn btn-primary form-control form-control-sm">Save</button>
+        <button id="cancelbtn" type="button" class="btn btn-primary form-control form-control-sm">Cancel</button>
+
     </div>
 </form>
 
@@ -37,8 +39,16 @@
         }).done(function (response) {
             $("#tableContiner").html(response);
             $("#createProduct").html("");
+            focusAction("tableContiner");
         }).fail(function (XMLHttpRequest,textStatus,errorThrown) {
             alert("FAIL");
         })
     });
+
+
+    $("#cancelbtn").click(function () {
+        $("#AddProductCon").html("");
+        focusAction("tableContiner");
+    });
+
 </script>

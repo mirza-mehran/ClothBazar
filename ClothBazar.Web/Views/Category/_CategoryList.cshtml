@@ -6,9 +6,10 @@
     <div>
         <form class="form-inline" method="post">
             <div class="form-group mb-2 ml-5">
-                <input id="searchtxt" class="ml-1" name="Search" value="@Model.SearchTerm" />
-                <button class="ml-1" type="button" id="search">Search</button>
-                <button class="ml-2" id="NewBtn" type="button">New</button>
+                <input id="searchtxt" class="form-control" name="Search" value="@Model.SearchTerm" />
+                <button class="btn btn-primary ml-1" type="button" id="search">Search</button>
+                <button class="btn btn-primary ml-1" type="button" id="reset">Reset</button>
+                <button class="btn btn-primary ml-1" type="button" id="NewBtn">New</button>
             </div>
         </form>
     </div>
@@ -16,9 +17,9 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <td>Category Name</td>
-                <td>Products</td>
-                <td class="wrap-td">Actions</td>
+                <th class="font-weight-bold">Category Name</th>
+                <th class="font-weight-bold">Products</th>
+                <th class="font-weight-bold wrap-td">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -74,11 +75,27 @@
                 })
                 .done(function (response) {
                     $("#AddProductCon").html(response);
-                    focusAction();
+                    focusAction("AddProductCon");
                 })
                 .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("FAIL");
                 })
+            });
+
+            $("#reset").click(function () {
+                var txtvalue = '';
+                $.ajax({
+                    url: '@Url.Action("CategoryList", "Category")',
+                    data: {
+                        search: txtvalue
+                    }
+                }).done(function (data) {
+
+                    $("#tableContiner").html(data);
+                }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("FAIL");
+                })
+
             });
 
             $(".EditBtn").click(function () {
@@ -90,7 +107,7 @@
                 })
                 .done(function (response) {
                     $("#AddProductCon").html(response);
-                    focusAction();
+                    focusAction("AddProductCon");
                 })
                 .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("FAIL");
@@ -118,10 +135,9 @@
                 }
 
             });
-            function focusAction() {
-
+            function focusAction(controlToFocus) {
                 $('html , body').animate({
-                    scrollTop: $("#AddProductCon").offset().top - 100
+                    scrollTop: $("#" + controlToFocus).offset().top - 100
                 }, 1000);
             }
 </script>

@@ -47,7 +47,9 @@
         <label>Price</label>
         <input type="text" name="Price" value="@Model.Price" />
 
-        <button id="editbtn" type="button">Update</button>
+        <button id="editbtn" type="button" class="btn btn-primary form-control form-control-lg">Update</button>
+        <button id="cancelbtn" type="button" class="btn btn-primary form-control form-control-lg">Cancel</button>
+
     </div>
 </form>
 
@@ -60,8 +62,14 @@
         }).done(function (response) {
             $("#tableContiner").html(response);
             $("#editProduct").html("");
+            focusAction("tableContiner");
         }).fail(function (XMLHttpRequest,textStatus,errorThrown) {
             alert("FAIL");
         })
+    });
+
+    $("#cancelbtn").click(function () {
+        $("#AddProductCon").html("");
+        focusAction("tableContiner");
     });
 </script>

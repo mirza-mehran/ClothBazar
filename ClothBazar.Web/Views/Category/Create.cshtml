@@ -53,7 +53,9 @@
             <img id="imageshow" src="@imageURL"  />
         </div>
         <br />
-        <button id="savebtn" type="button" class="btn btn-primary form-control form-control-lg">Save</button>
+        <button id="savebtn" type="button" class="btn btn-primary form-control form-control-sm">Save</button>
+        <button id="cancelbtn" type="button" class="btn btn-primary form-control form-control-sm">Cancel</button>
+
     </div>
 </form>
 
@@ -66,11 +68,19 @@
             url: '@Url.Action("Create", "Category")',//'/Category/Create',
             data: $("#createCategory").serialize()
         }).done(function (response) {
+
             $("#tableContiner").html(response);
             $("#createCategory").html("");
+            focusAction("tableContiner");
+
         }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
             alert("FAIL");
         })
+    });
+
+    $("#cancelbtn").click(function () {
+        $("#createCategory").html("");
+        focusAction("tableContiner");
     });
 
     $("#changeimg").change(function () {
