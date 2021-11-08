@@ -8,6 +8,10 @@
     var imageURL = "/Content/Images/Default_image.jpg";
 }
 
+@*<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>*@
+
 @*<form method="post">
     <h2>Create Category</h2>
 
@@ -63,20 +67,67 @@
 <script>
 
     $("#savebtn").click(function () {
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("Create", "Category")',//'/Category/Create',
-            data: $("#createCategory").serialize()
-        }).done(function (response) {
+        if ($('#createCategory').valid()) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Create", "Category")',//'/Category/Create',
+                data: $("#createCategory").serialize()
+            }).done(function (response) {
 
-            $("#tableContiner").html(response);
-            $("#createCategory").html("");
-            focusAction("tableContiner");
+                $("#tableContiner").html(response);
+                $("#createCategory").html("");
+                focusAction("tableContiner");
 
-        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("FAIL");
-        })
+            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                swal({
+                    title: "Warning",
+                    text: "Please enter all required fields",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+
+                });
+            });
+        }
+        else {
+            swal({
+                title: "JS Warning",
+                text: "Please enter all required fields",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+
+            })
+        }
+       
     });
+
+ 
+        //$("#createCategory").validate({
+        //    rules: {
+        //        "name": {
+        //            required: true,
+        //            minlength: 5
+        //        },
+        //        "Description": {
+        //            required: true,
+           
+        //        }
+        //    },
+        //    messages: {
+        //        "name": {
+        //            required: "Please, enter a name"
+        //        },
+        //        "Description": {
+        //            required: "Please, enter an Description",
+                  
+        //        }
+        //    }
+        
+        //});
+
+
+
 
     $("#cancelbtn").click(function () {
         $("#createCategory").html("");

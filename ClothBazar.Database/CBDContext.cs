@@ -14,6 +14,7 @@ namespace ClothBazar.Database
         {
             System.Data.Entity.Database.SetInitializer(new MigrateDatabaseToLatestVersion<CBDContext, Migrations.Configuration>());
         }
+  
         public DbSet<Product> Products
         {
             get; set;
@@ -28,7 +29,9 @@ namespace ClothBazar.Database
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
+            //Fluent Api mean validation on server side in entity framework
+            modelBuilder.Entity<Product>().Property(s => s.Name)
+         .HasColumnName("FirstName");
         }
     }
 }

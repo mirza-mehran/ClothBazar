@@ -41,10 +41,34 @@ namespace ClothBazar.Services
         {
             using (var context = new CBDContext())
             {
-                int pageSize = 5;
-                //return context.Products.OrderBy(x => x.Name).Skip( (pageNo-1) * pageSize).Take(pageSize).Include(x => x.Category).ToList();
-                return context.Products.Include(x => x.Category).ToList();
+                int pageSize = 5; //int.Parse(ConfigurationService.Instance.GetConfig("ListingPageNumber").Value);
+                return context.Products.OrderBy(x => x.Name).Skip( (pageNo-1) * pageSize).Take(pageSize).Include(x => x.Category).ToList();
+               // return context.Products.Include(x => x.Category).ToList();
 
+            }
+        }
+        //Use in Widgets Service Method overloading
+        public List<Product> GetAllProduct(int pageNo,int pageSize)
+        {
+            using (var context = new CBDContext())
+            {
+                return context.Products.OrderByDescending(x => x.Name).Skip((pageNo - 1) * pageSize).Take(pageSize).Include(x => x.Category).ToList();
+            }
+        }
+        //Use in Widgets
+        public List<Product> GetLatestProduct(int numberOfProducts)
+        {
+            using (var context=new CBDContext())
+            {
+                return context.Products.OrderByDescending(x => x.ID).Take(numberOfProducts).Include(x => x.Category).ToList();
+            }
+        }
+        //Use in Widgets Service 
+        public List<Product> GetProductByCategory(int categoryID, int pageSize)
+        {
+            using (var context = new CBDContext())
+            {
+                return context.Products.Where(x => x.Category.ID == categoryID).OrderByDescending(x => x.Name).Take(pageSize).Include(x => x.Category).ToList();
             }
         }
 

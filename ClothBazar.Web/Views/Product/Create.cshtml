@@ -1,6 +1,7 @@
 ﻿@model ProductViewModels
 @{
     ViewBag.Title = "Create";
+    var imageURL = "/Content/Images/Default_image.jpg";
 }
 <h2>Create Product</h2>
 <form id="createProduct" class="form-inline" >
@@ -23,6 +24,13 @@
         <label>Price</label>
         <input type="text" name="Price" />
 
+        <label>Image</label>
+        <input class="form-control form-control-lg" type="hidden" id="ImageURL" name="ImageURL" />
+        <input class="form-control form-control-lg" id="changeimg" type="file" name="image" accept=".png .jpg" />
+        <div class="thumb w-25 h-25 ">
+            <img id="imageshow" src="@imageURL" />
+        </div>
+
         <button id="savebtn" type="button" class="btn btn-primary form-control form-control-sm">Save</button>
         <button id="cancelbtn" type="button" class="btn btn-primary form-control form-control-sm">Cancel</button>
 
@@ -31,6 +39,39 @@
 
 
 <script>
+
+    $("#changeimg").change(function () {
+
+        var element = this;
+        var formData = new FormData();
+        var totalFiles = element.files.length;
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("Photo", file);
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UploadImage", "Shared")',//'/Shared/UploadImage',
+            dataType: 'json',
+            data: formData,
+            contentType: false,
+            processData: false
+        }).done(function (response) {
+
+            console.log(response);
+
+            if (response.Success) {
+                $("#ImageURL").val(response.ImageURL);
+                $("#imageshow").attr("src", response.ImageURL);
+            }
+
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("FAIL");
+        })
+    })
+
     $("#savebtn").click(function () {
         $.ajax({
             type:'POST',

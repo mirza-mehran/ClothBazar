@@ -37,11 +37,54 @@ namespace ClothBazar.Services
                 context.SaveChanges();
             }
         }
+        public int GetAllCategoryCount(string search)
+        {
+            using (var context = new CBDContext())
+            {
+                if (!string.IsNullOrEmpty(search))
+                {
+                    return context.Categories.Where(x => x.Name != null && x.Name.ToLower()
+                    .Contains(search.ToLower())).Count();
+                  
+                }
+                else
+                {
+                    return context.Categories.Count();
+                }
+            }
+        }
         public List<Category> GetAllCategory()
         {
             using (var context = new CBDContext())
-            {               
-                return  context.Categories.Include(x => x.Products).ToList();
+            {
+                return context.Categories.ToList();
+            }
+        }
+
+        public List<Category> GetAllCategory(string search,int pageNo)
+        {
+            int pageSize = 2;
+            using (var context = new CBDContext())
+            {
+                if (!string.IsNullOrEmpty(search))
+                {
+                   return context.Categories.Where(x => x.Name != null && x.Name.ToLower()
+                   .Contains(search.ToLower()))
+                   .OrderBy(x => x.Name)
+                   .Skip((pageNo - 1) * pageSize)
+                   .Take(pageSize)
+                   .Include(x => x.Products)
+                   .ToList();
+                }
+                else
+                {
+                    return context.Categories
+                        .OrderBy(x => x.Name)
+                        .Skip((pageNo - 1) * pageSize)
+                        .Take(pageSize)
+                        .Include(x => x.Products)
+                        .ToList();
+                }            
             }
         }
         public List<Category> GetFeaturedCategories()

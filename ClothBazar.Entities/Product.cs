@@ -16,5 +16,9 @@ namespace ClothBazar.Entities
         {
             get; set;
         }
+        public string ImageURL
+        {
+            get; set;
+        }
     }
 }

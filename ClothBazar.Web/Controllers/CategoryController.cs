@@ -18,18 +18,26 @@ namespace ClothBazar.Web.Controllers
             return View();
         }
 
-        public ActionResult CategoryList(string search)
+        public ActionResult CategoryList(string search,int? pageNo)
         {
             CategorySearchViewModels model = new CategorySearchViewModels();
-            model.Categories = CategoriesService.Instance.GetAllCategory();
+            model.SearchTerm = search;
+            pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
 
+            var totalRecords = CategoriesService.Instance.GetAllCategoryCount(search);
+            model.Categories = CategoriesService.Instance.GetAllCategory(search,pageNo.Value);
 
-            if (!string.IsNullOrEmpty(search))
+          
+            if (model.Categories !=null)
             {
-                model.SearchTerm = search;
-                model.Categories = model.Categories.Where(x => x.Name !=null && x.Name.ToLower().Contains(search.ToLower())).ToList();
+                model.Pager = new Pager(totalRecords, pageNo,2);
+                return PartialView("_CategoryList", model);
             }
-            return PartialView("_CategoryList", model);
+            else
+            {
+                return HttpNotFound();
+            }
+        
         }
 
         [HttpGet]
@@ -45,7 +53,6 @@ namespace ClothBazar.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 var newcategory = new Category();
                 newcategory.Name = model.Name;
                 newcategory.Description = model.Description;
@@ -53,8 +60,12 @@ namespace ClothBazar.Web.Controllers
                 newcategory.IsFeatured = model.isFeatured;
 
                 CategoriesService.Instance.SaveCategory(newcategory);
+                return RedirectToAction("CategoryList");
             }
-            return RedirectToAction("CategoryList");
+            else
+            {
+                return new HttpStatusCodeResult(500);
+            }
         }
 
         [HttpGet]
