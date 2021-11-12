@@ -22,11 +22,11 @@ namespace ClothBazar.Web.Controllers
 
         public ActionResult ProductList(string search,int? pageNo)
         {
-          
+            var pageSize = ConfigurationService.Instance.PageSize();
             ProductSearchViewModels model = new ProductSearchViewModels();
-
+            model.SearchTerm = search;
             //check page value otherwise 1 value assign
-            model.pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+            pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
 
             //Example one line if condition
             //if (pageNo.HasValue)
@@ -45,13 +45,12 @@ namespace ClothBazar.Web.Controllers
             //   model.pageNo = 1;
             //}
 
-            model.Products = ProductsService.Instance.GetAllProduct(model.pageNo);
-            if (!string.IsNullOrEmpty(search))
-            {
-                model.SearchTerm = search;
+    
+            var totalRecords = ProductsService.Instance.GetAllProductCount(search);
+            model.Products = ProductsService.Instance.GetAllProduct(search, pageNo.Value, pageSize);
 
-                model.Products = model.Products.Where(x => x.Name !=null && x.Name.ToLower().Contains(search.ToLower())).ToList();
-            }
+            model.Pager = new Pager(totalRecords,pageNo, pageSize );
+        
             return PartialView(model);
         }
 
@@ -110,9 +109,13 @@ namespace ClothBazar.Web.Controllers
                 existingProduct.Name = model.Name;
                 existingProduct.Description = model.Description;
                 existingProduct.Price = model.Price;
-                existingProduct.Category = CategoriesService.Instance.GetCategoryID(model.CategoryID);
-                existingProduct.ImageURL = model.ImageURL;
+                existingProduct.CategoryID = model.CategoryID;
+              //  existingProduct.ImageURL = model.ImageURL;
 
+                if (!string.IsNullOrEmpty(model.ImageURL))
+                {
+                    existingProduct.ImageURL = model.ImageURL;
+                }
                 ProductsService.Instance.GetProductUpdate(existingProduct);
             }
             return RedirectToAction("ProductList");

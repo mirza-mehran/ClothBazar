@@ -1,11 +1,23 @@
 ﻿@model ClothBazar.Web.HomeModelViews.HomeModelView
 
 @{
-    //var firstCategory = Model.FeaturedCategories.Where(x => x.ImageURL != null).First();
-    var firstCategory = Model.FeaturedCategories[0];
-    var secondCategory = Model.FeaturedCategories[1];
-    var thirdCategory = Model.FeaturedCategories[2];
-    var fourthCategory = Model.FeaturedCategories[3];
+
+
+    var firstCategory = Model.FeaturedCategories.Where(x => x.ImageURL != null).FirstOrDefault();
+    var secondCategory = Model.FeaturedCategories.Where(x => x.ImageURL != null).FirstOrDefault();
+    var thirdCategory = Model.FeaturedCategories.Where(x => x.ImageURL != null).FirstOrDefault();
+    var fourthCategory = Model.FeaturedCategories.Where(x => x.ImageURL != null).FirstOrDefault();
+    if (firstCategory !=null )
+    {
+        firstCategory = Model.FeaturedCategories[0];
+        secondCategory = Model.FeaturedCategories[1];
+        thirdCategory = Model.FeaturedCategories[2];
+        fourthCategory = Model.FeaturedCategories[3];
+    }
+
+
+
+
     //foreach (var item in Model.FeaturedCategories)
     //{
     //    var Category = item;
@@ -19,7 +31,6 @@
                     <li data-transition="random">
                         <!-- Main Image -->
                         <img src="~/modaz/images/slider/slider-bg-5.jpg" alt="" data-bgposition="center center" data-no-retina>
-
                         <!-- Layers -->
                         <div class="tp-caption tp-resizeme text-white font-weight-300"
                              data-x="['left','left','left','center']" data-hoffset="['0','0','0','0']"
@@ -40,7 +51,6 @@
                              data-responsive_offset="on">
                             NEW TREND 2018
                         </div>
-
                         <div class="tp-caption tp-resizeme text-white font-weight-500"
                              data-x="['left','left','left','center']" data-hoffset="['0','0','0','0']"
                              data-y="['middle','middle','middle','middle']" data-voffset="['-42','-42','-42','-42']"
@@ -60,7 +70,6 @@
                              data-responsive_offset="on">
                             New Collection
                         </div>
-
                         <div class="tp-caption tp-resizeme text-white font-weight-400 "
                              data-x="['left','left','left','center']" data-hoffset="['0','0','0','0']"
                              data-y="['middle','middle','middle','middle']" data-voffset="['12','12','12','12']"
@@ -80,7 +89,6 @@
                              data-responsive_offset="on">
                             BIG SALE OF THIS WEEK UP TO 30%
                         </div>
-
                         <div class="tp-caption"
                              data-x="['left','left','left','center']" data-hoffset="['0','0','0','0']"
                              data-y="['middle','middle','middle','middle']" data-voffset="['80','80','80','80']"

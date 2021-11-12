@@ -67,7 +67,7 @@
 <script>
 
     $("#savebtn").click(function () {
-        if ($('#createCategory').valid()) {
+        //if ($('#createCategory').valid()) {
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("Create", "Category")',//'/Category/Create',
@@ -88,17 +88,17 @@
 
                 });
             });
-        }
-        else {
-            swal({
-                title: "JS Warning",
-                text: "Please enter all required fields",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
+        //}
+        //else {
+        //    swal({
+        //        title: "JS Warning",
+        //        text: "Please enter all required fields",
+        //        icon: "warning",
+        //        buttons: true,
+        //        dangerMode: true,
 
-            })
-        }
+        //    })
+        //}
        
     });
 
