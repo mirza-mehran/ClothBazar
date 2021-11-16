@@ -841,5 +841,21 @@
       flatIsotope();
       flatCarouselOwl();
       flatContentBox();
+      updateCartProducts();
    	});
 })(jQuery);
+
+
+function updateCartProducts() {
+
+    var cartproducts;
+    var existingCookieData = $.cookie('CartProducts');
+    if (existingCookieData != undefined && existingCookieData != "" && existingCookieData != null) {
+        cartproducts = existingCookieData.split('-');
+    }
+    else {
+        cartproducts = [];
+    }
+
+    $("#cartProductCount").html(cartproducts.length);
+}

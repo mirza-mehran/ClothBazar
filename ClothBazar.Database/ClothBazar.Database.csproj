@@ -66,6 +66,14 @@
     <Compile Include="Migrations\202111111101246_addedCategoryIDInProduct.Designer.cs">
       <DependentUpon>202111111101246_addedCategoryIDInProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111141054448_AddedOrderandOrderItemsTable.cs" />
+    <Compile Include="Migrations\202111141054448_AddedOrderandOrderItemsTable.Designer.cs">
+      <DependentUpon>202111141054448_AddedOrderandOrderItemsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111141256066_AddedQunatityInOrderItems.cs" />
+    <Compile Include="Migrations\202111141256066_AddedQunatityInOrderItems.Designer.cs">
+      <DependentUpon>202111141256066_AddedQunatityInOrderItems.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -93,6 +101,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202111111101246_addedCategoryIDInProduct.resx">
       <DependentUpon>202111111101246_addedCategoryIDInProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111141054448_AddedOrderandOrderItemsTable.resx">
+      <DependentUpon>202111141054448_AddedOrderandOrderItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111141256066_AddedQunatityInOrderItems.resx">
+      <DependentUpon>202111141256066_AddedQunatityInOrderItems.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

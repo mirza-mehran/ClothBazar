@@ -63,15 +63,12 @@
                                 <button type="submit" class="header-search-submit" title="Search">Search</button>
                             </form>
                         </li>
-                        @if (User.Identity.IsAuthenticated)
-	                    {
-		                     <h5>@User.Identity.Name</h5>
-	                    }
+                     
                         <li class="box-login">
                             <a class="icon_login" href="#"></a>
                         </li>
                         <li class="box-cart nav-top-cart-wrapper">
-                            <a class="icon_cart nav-cart-trigger active" href="#"><span>3</span></a>
+                            <a class="icon_cart nav-cart-trigger active" href="@Url.Action("Checkout", "Shop")"><span id="cartProductCount">0</span></a>
                             <div class="nav-shop-cart">
                                 <div class="widget_shopping_cart_content">
                                     <div class="woocommerce-min-cart-wrap">
@@ -83,6 +80,12 @@
                                     </div><!-- /.widget_shopping_cart_content -->
                                 </div>
                             </div><!-- /.nav-shop-cart -->
+                        </li>
+                        <li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <h5>@User.Identity.Name</h5>
+                            }
                         </li>
                     </ul><!-- /.menu-extra -->
                     <div class="nav-wrap">
@@ -128,8 +131,11 @@
                                 </div>
                             </form>
                             <ul class="flat-social">
-                          
-                                <li><a href="@ConfigurationService.Instance.GetConfig("Facebook").Value"><i class="fa fa-facebook"></i></a></li>
+                                @if (ConfigurationService.Instance.GetConfig("Facebook").Value != null)
+                                {
+                                    <li><a href="@ConfigurationService.Instance.GetConfig("Facebook").Value"><i class="fa fa-facebook"></i></a></li>
+                                }
+                                
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-google"></i></a></li>
                                 <li><a href="#"><i class="fa fa-behance"></i></a></li>
@@ -181,7 +187,11 @@
                                 <a href="index.html"><img src="~/modaz/images/logo@2x.png" alt="image" width="107" height="24"></a>
                             </div>
                             <ul class="flat-contact">
-                                <li class="address">@ConfigurationService.Instance.GetConfig("CompanyAddress").Value</li>
+                                @if (ConfigurationService.Instance.GetConfig("CompanyAddress").Value != null)
+                                {
+                                    <li class="address">@ConfigurationService.Instance.GetConfig("CompanyAddress").Value</li>
+                                }
+                              
                                 <li class="phone">+12 345 678 910</li>
                                 <li class="email">infor.deercreative@gmail.com</li>
                             </ul><!-- /.flat-contact -->

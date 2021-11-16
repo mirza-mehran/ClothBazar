@@ -27,11 +27,13 @@ namespace ClothBazar.Database
         {
             get; set;
         }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //Fluent Api mean validation on server side in entity framework
-            modelBuilder.Entity<Product>().Property(s => s.Name)
-         .HasColumnName("FirstName");
+            modelBuilder.Entity<Product>().Property(s => s.Name).HasColumnName("FirstName");
         }
     }
 }

@@ -200,6 +200,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
@@ -209,10 +210,20 @@
     </Compile>
     <Compile Include="HomeModelViews\CategoryViewModel.cs" />
     <Compile Include="HomeModelViews\HomeModelViews.cs" />
+    <Compile Include="HomeModelViews\OrdersViewModels.cs" />
     <Compile Include="HomeModelViews\ProductViewModels.cs" />
     <Compile Include="HomeModelViews\SharedViewModel.cs" />
     <Compile Include="HomeModelViews\ShopViewModels.cs" />
     <Compile Include="HomeModelViews\WidgetViewModel.cs" />
+    <Compile Include="Migrations\202111100942188_InitialCreate.cs" />
+    <Compile Include="Migrations\202111100942188_InitialCreate.Designer.cs">
+      <DependentUpon>202111100942188_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111121721512_AddedNewPropertiesToUser.cs" />
+    <Compile Include="Migrations\202111121721512_AddedNewPropertiesToUser.Designer.cs">
+      <DependentUpon>202111121721512_AddedNewPropertiesToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -555,6 +566,7 @@
     <Content Include="modaz\rev-slider\fonts\revicons\revicons90c6.eot" />
     <Content Include="modaz\rev-slider\fonts\revicons\revicons90c6.ttf" />
     <Content Include="modaz\rev-slider\fonts\revicons\revicons90c6.woff" />
+    <None Include="Properties\PublishProfiles\ClothBazaar.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -615,6 +627,8 @@
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
     <Content Include="Views\Shop\FilterProducts.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Order\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -640,6 +654,14 @@
       <Project>{16c353de-08d9-43c5-b23f-4696837fe277}</Project>
       <Name>ClothBazar.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202111100942188_InitialCreate.resx">
+      <DependentUpon>202111100942188_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111121721512_AddedNewPropertiesToUser.resx">
+      <DependentUpon>202111121721512_AddedNewPropertiesToUser.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
